@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    width: 1380px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .json-container {
+    flex: 1;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px #ccc;
+    overflow: auto;
+    max-height: 700px;
+
+  }
+
+  pre {
+    font-size: 14px;
+    font-family: monospace;
+    white-space: pre-wrap;
+  }
+
+  .json-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .json-container::-webkit-scrollbar-track {
+    background-color: #2f3136; /* ajusta este valor según tus necesidades */
+  }
+
+  .json-container::-webkit-scrollbar-thumb {
+    background-color: #7289da; /* ajusta este valor según tus necesidades */
+    border-radius: 4px; /* ajusta este valor según tus necesidades */
+  }
