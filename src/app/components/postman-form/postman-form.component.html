@@ -1,0 +1,40 @@
+<div class="input-container">
+  <div class="method-container">
+  <label for="method">Method</label>
+  <select id="method" [(ngModel)]="selectedMethod" [ngClass]="selectClass" (change)="onMethodChange()">
+    <option value="GET" class="option-get">GET</option>
+    <option value="POST" class="option-post">POST</option>
+    <option value="PUT" class="option-put">PUT</option>
+    <option value="DELETE" class="option-delete">DELETE</option>
+  </select>
+</div>
+<div class="url-container">
+  <input type="text" placeholder="ingrese una url" [(ngModel)]="requestUrl">
+  <button type="button" (click)="compare()">Comparar</button>
+</div>
+</div>
+
+<div class="postman-component">
+  <div class="tab-header">
+    <button class="tab-button " [ngClass]="{'active': headersTabActive}" (click)="activateHeadersTab()">Headers</button>
+    <button class="tab-button" [ngClass]="{'active': bodyTabActive}" (click)="activateBodyTab()">Body</button>
+  </div>
+  <div class="tab-content active" *ngIf="headersTabActive">
+    <div class="header-section">
+      <h2>Headers for test</h2>
+      <div class="header-inputs">
+        <div *ngFor="let header of inputHeaders; let i = index" class="header-input">
+          <input type="text" [(ngModel)]="inputHeaders[i].key" placeholder="Key">
+          <input type="text" [(ngModel)]="inputHeaders[i].value" placeholder="Value" (change)="addNewInput()">
+          <button type="button" (click)="removeHeader(i)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content" *ngIf="bodyTabActive">
+  <div class="body-section">
+    <h2>Body</h2>
+    <textarea [(ngModel)]="body" placeholder="Ingrese el body de la solicitud"></textarea>
+  </div>
+  </div>
+  <app-json-comparator [json1]="json1" [json2]="json2"></app-json-comparator>
