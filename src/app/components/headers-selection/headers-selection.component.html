@@ -1,0 +1,11 @@
+<div class="header-section">
+  <h2>Headers for test</h2>
+  <span (click)="addHeader()" class="add-header"><mat-icon>add_circle<</mat-icon></span>
+  <div class="header-inputs">
+    <div *ngFor="let header of inputHeaders; let i = index" class="header-input">
+      <input type="text" [(ngModel)]="inputHeaders[i].key" placeholder="Key">
+      <input type="text" [(ngModel)]="inputHeaders[i].value" placeholder="Value" (change)="addNewInput()">
+      <span (click)="removeHeader(i)" class="remove-header"><mat-icon>delete_forever</mat-icon></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="input-container">
+<div class="url-container">
+  <input type="text" placeholder="Diffy URL" [(ngModel)]="diffyUrl">
+</div>
+</div>
+<div class="tests-section">
+  <div class="test-element">
+    <mat-toolbar style="background-color: #2F3136; box-shadow: 0px 0px 10px rgb(0 0 0 / 40%)">
+      <div class="left">
+        <span>GUARD MERGE</span>
+      </div>
+      <div class="right">
+        <button mat-icon-button class="start-button" *ngIf="queueStatus === 0" (click)="compare('merge')">
+          <mat-icon>play_circle_outline</mat-icon>
+        </button>
+
+        <button mat-icon-button class="start-button" *ngIf="queueStatus === 0" (click)="diffy('merge')">
+          <span>diffy</span>
+        </button>
+
+        <button mat-icon-button class="pause-button" *ngIf="queueStatus > 0">
+          <mat-icon>pause_circle_outline</mat-icon>
+        </button>
+
+      </div>
+    </mat-toolbar>
+    <mat-progress-bar *ngIf="queueStatus > 0 && totalQueue > 0  && running === 'merge' " mode="determinate" value="{{(queueStatus * 100 ) / totalQueue}}"></mat-progress-bar>
+
+  </div>
+
+  <div class="tests-section">
+    <div class="test-element">
+      <mat-toolbar style="background-color: #2F3136; box-shadow: 0px 0px 10px rgb(0 0 0 / 40%)">
+        <div class="left">
+          <span>GUARD MERGE - SHOPPING</span>
+        </div>
+        <div class="right">
+          <button mat-icon-button class="start-button" *ngIf="queueStatus === 0" (click)="compareShopping('merge')">
+            <mat-icon>play_circle_outline</mat-icon>
+          </button>
+
+          <button mat-icon-button class="start-button" *ngIf="queueStatus === 0" (click)="diffy('merge')">
+            <span>diffy</span>
+          </button>
+
+          <button mat-icon-button class="pause-button" *ngIf="queueStatus > 0">
+            <mat-icon>pause_circle_outline</mat-icon>
+          </button>
+
+        </div>
+      </mat-toolbar>
+      <mat-progress-bar *ngIf="queueStatus > 0 && totalQueue > 0  && running === 'shopping' " mode="determinate" value="{{(queueStatus * 100 ) / totalQueue}}"></mat-progress-bar>
+    </div>
+  <div class="test-element">
+    <mat-toolbar style="background-color: #2F3136; box-shadow: 0px 0px 10px rgb(0 0 0 / 40%)">
+      <div class="left">
+        <span>COUPONS SimulateUseMultiple</span>
+      </div>
+      <div class="right">
+        <button mat-icon-button class="start-button" (click)="compare('MERGE')">
+          <mat-icon>play_circle_outline</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+  </div>
+</div>

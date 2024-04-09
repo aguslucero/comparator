@@ -1,6 +1,9 @@
-import { HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
+import {Component, OnInit} from '@angular/core';
+import {HttpService} from 'src/app/services/http.service';
+import * as jsondiffpatch from 'jsondiffpatch';
+import {SHA256} from 'crypto-js';
+import {ComparatorService} from "../../services/comparator.service";
+
 
 @Component({
   selector: 'app-postman-form',
@@ -9,62 +12,52 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class PostmanFormComponent {
 
-constructor(private httpService: HttpService){}
+  constructor(private comparatorService: ComparatorService) {
+  }
+
+
 
   requestUrl = ''
   inputHeaders = [
-    { key: '', value: '' },
-    { key: '', value: '' },
+    {key: 'Content-Type', value: 'application/json'},
+    {key: 'xdesp-sandbox', value: 'true'},
+    {key: 'x-client', value: 'promos-comparator'},
   ];
-  body = '';
-  json1 = {}
-  json2 = {}
+  body = null
+  json1: any = [];
+  json2: any = [];
+  diffOutput: any = []
+
+  comparisons: any = []
   selectedMethod: string = 'GET';
 
-  headersTabActive = true;
-  bodyTabActive = false;
+  activeTab = 'HEADERS'
   selectClass = 'select-get'
 
+  requestIndex = 0;
+
   activateHeadersTab() {
-    this.headersTabActive = true;
-    this.bodyTabActive = false;
+    this.activeTab = 'HEADERS'
   }
 
   activateBodyTab() {
-    this.headersTabActive = false;
-    this.bodyTabActive = true;
+    this.activeTab = 'BODY'
   }
 
-  addHeader() {
-    this.inputHeaders.push({ key: '', value: '' });
+  activateTestsTab() {
+    this.activeTab = 'TESTS'
   }
 
-  removeHeader(index: number) {
-    if (this.inputHeaders.length > 2) {
-      this.inputHeaders.splice(index, 1);
-    } else {
-      this.inputHeaders[index] = { key: '', value: '' };
-    }
+  activateSettingsTab() {
+    this.activeTab = 'SETTINGS'
   }
 
-  addNewInput() {
-    if (this.inputHeaders[this.inputHeaders.length - 1].value) {
-      this.inputHeaders.push({ key: '', value: '' });
-    }
-  }
 
   compare() {
-    let validheaders = this.inputHeaders.filter(header => header.key != null && header.value && null)
-    const headers = validheaders.reduce((acc, curr) => {
-      return acc.set(curr.key, curr.value);
-    }, new HttpHeaders());
-   this.httpService.makeRequest(this.requestUrl, this.selectedMethod, this.body).subscribe(data => {
-    this.json1 = data
-   })
-   this.httpService.makeRequest(this.requestUrl, this.selectedMethod,this.body, headers).subscribe(data => {
-    this.json2 = data
-   })
+    this.comparatorService.updateQueue(this.comparatorService.currentRequestQueue + 1)
+   this.comparatorService.compare(this.requestUrl, this.selectedMethod, this.body, this.inputHeaders)
   }
+
 
   onMethodChange() {
     switch (this.selectedMethod) {
@@ -84,5 +77,14 @@ constructor(private httpService: HttpService){}
         this.selectClass = 'select-get';
         break;
     }
+  }
+
+  changeHeaders($event: any) {
+    this.inputHeaders = $event
+    console.log(this.inputHeaders)
+  }
+
+  isBodyTab() {
+    return this.activeTab === 'BODY'
   }
 }

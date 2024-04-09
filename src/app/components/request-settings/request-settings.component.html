@@ -1,0 +1,10 @@
+
+<div class="option">
+  <div class="title-switch">
+    <h3>{{title}}</h3>
+    <div class="switch">
+    <mat-slide-toggle color="primary" [(ngModel)]="settings.ignoreMove" (change)="updateSettings()"></mat-slide-toggle>
+    </div>
+  </div>
+  <p class="description">{{description}}</p>
+</div>

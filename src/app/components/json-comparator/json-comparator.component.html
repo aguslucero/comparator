@@ -1,16 +1,75 @@
-<div class="container">
-  <div class="json-container">
-    <h2>Prod</h2>
-    <pre>{{ json1 | json }}</pre>
+<div class="switch-options" *ngIf="comparisons && comparisons.length > 0">
+  <div class="switch">
+    <span> Manipular jsons </span>
+    <mat-slide-toggle color="primary" [(ngModel)]="manipuleJsons" ></mat-slide-toggle>
+  </div>
+  <div class="switch">
+    <span> Mostrar solo errores </span>
+    <mat-slide-toggle color="primary" [(ngModel)]="onlyErrors" (change)="pageIndex = 0; updateCurrentPageData()"></mat-slide-toggle>
   </div>
 
-  <div class="json-container">
-    <h2>TEST</h2>
-    <pre>{{ json2 | json }}</pre>
-  </div>
-
-  <div class="json-container">
-    <h2>Diferencias</h2>
-    <pre>{{ diffOutput }}</pre>
-  </div>
 </div>
+
+<ng-container   *ngIf="comparisons">
+<ng-container
+  *ngFor="let comparison of showFiltered ? paginatedItems : comparisons.slice(0, pageSize) , let i = index">
+
+  <mat-accordion>
+    <mat-expansion-panel hideToggle (afterCollapse)="showIndex = -1" (click)="showIndex = i" class="expansion-panel">
+      <mat-expansion-panel-header>
+      <span class="example-icon check" *ngIf="comparison.json1 && comparison.json2 && !comparison.differences">
+        <mat-icon>check</mat-icon>
+      </span>
+        <span class="example-icon cross" *ngIf="comparison.json1 && comparison.json2 && comparison.differences">
+        <mat-icon>clear</mat-icon>
+      </span>
+        <div class="spinner-container">
+          <mat-spinner class="spinner" *ngIf="!comparison.json1 || !comparison.json2"></mat-spinner>
+        </div>
+        <mat-panel-title>
+          request {{i}}
+        </mat-panel-title>
+        <mat-panel-description>
+          <span *ngIf="comparison.description"> {{comparison.description}}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+
+
+      <div class="container" *ngIf="showIndex === i">
+        <div class="json-container">
+          <h2>Produccion </h2>
+          <button mat-icon-button class="copy-button" (click)="copyText(comparison.json1)">
+            <mat-icon>file_copy</mat-icon>
+          </button>
+          <pre *ngIf="!manipuleJsons">{{comparison.json1 | json }}</pre>
+          <ngx-json-viewer *ngIf="manipuleJsons" [json]="comparison.json1" ></ngx-json-viewer>
+        </div>
+
+        <div class="json-container " style="overflow-x: auto;">
+          <h2>TEST</h2>
+          <button mat-icon-button class="copy-button" (click)="copyText(comparison.json2)">
+            <mat-icon>file_copy</mat-icon>
+          </button>
+          <pre *ngIf="!manipuleJsons">{{comparison.json2 | json }}</pre>
+          <ngx-json-viewer *ngIf="manipuleJsons" id="my-json-viewer" [json]="comparison.json2" ></ngx-json-viewer>
+        </div>
+        <div class="json-container">
+          <h2>Diferencias</h2>
+          <pre>{{ comparison.differences || 'No hay diferenciassss' }}</pre>
+        </div>
+      </div>
+      </ng-template>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+</ng-container>
+
+<ng-container *ngIf="comparisons && comparisons.length > 0">
+<mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[1, 2, 25]" [length]="totalItems" [pageIndex]="pageIndex"
+               (page)="onPageChange($event)" showFirstLastButtons="true">
+</mat-paginator>
+</ng-container>
+</ng-container>

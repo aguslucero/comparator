@@ -1,8 +1,13 @@
+
+:root {
+  --ngx-json-key: #ffffff
+}
 .container {
     display: flex;
     width: 1380px;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: 400px;
   }
 
   .json-container {
@@ -13,7 +18,7 @@
     box-shadow: 0 0 10px #ccc;
     overflow: auto;
     max-height: 700px;
-
+    position: relative;
   }
 
   pre {
@@ -22,16 +27,95 @@
     white-space: pre-wrap;
   }
 
-  .json-container::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
 
-  .json-container::-webkit-scrollbar-track {
+ ::-webkit-scrollbar-track {
     background-color: #2f3136; /* ajusta este valor según tus necesidades */
   }
 
-  .json-container::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     background-color: #7289da; /* ajusta este valor según tus necesidades */
     border-radius: 4px; /* ajusta este valor según tus necesidades */
   }
+
+
+.ngx-json-viewer {
+  display: contents;
+}
+
+.ngx-json-viewer .toggler {
+  position: absolute;
+}
+
+.mat-expansion-panel, .mat-mdc-paginator{
+  background-color: #2F3136;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+.example-icon {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.example-icon.check {
+  color: #43b581;
+  border: 3px solid #43b581;
+  box-sizing: border-box;
+}
+
+.example-icon.cross {
+  color: #f04747;
+  border: 3px solid #f04747;
+  box-sizing: border-box;
+}
+
+
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+}
+
+  .spinner {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-50%, 0);}
+
+.expansion-panel {
+  margin-bottom: 8px!important;
+}
+
+.switch-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 36px;
+}
+
+.switch {
+  margin-right: 90px;
+}
+
+.mat-mdc-tooltip-trigger {
+  position: relative !important;
+}

@@ -1,0 +1,48 @@
+
+.left {
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button.mat-icon-button {
+  background-color: transparent;
+}
+
+button.mat-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  color: #b9bbbe;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.start-button {
+  position: relative;
+  color: #3a8307;
+}
+
+.pause-button{
+  position: relative;
+  color: #a4a40a;
+}
+
+.test-element {
+  margin-bottom: 24px;
+}
+
+.tab-content {
+  overflow: hidden;
+}

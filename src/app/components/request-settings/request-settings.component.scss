@@ -1,0 +1,40 @@
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Permite que el componente ocupe todo el ancho disponible */
+  margin-bottom: 20px;
+  color: #b9bbbe;
+  padding: 8px;
+
+  &:hover {
+    background-color: #36393f;
+  }
+}
+
+.title-switch {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; /* Ajusta el switch a la derecha */
+  margin-bottom: 10px;
+  width: 100%; /* Permite que el contenedor ocupe todo el ancho del componente */
+}
+
+.title-switch h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+  margin-bottom: 0; /* Quita el margen inferior del título */
+  flex-grow: 1; /* Permite que el título ocupe todo el espacio disponible */
+}
+
+.description {
+  font-size: 14px;
+  margin: 0;
+  margin-top: 5px; /* Agrega un margen superior a la descripción */
+}
+
+.switch {
+  height: 0;
+}
+
