@@ -56,7 +56,8 @@
         </div>
         <div class="json-container">
           <h2>Diferencias</h2>
-          <pre>{{ comparison.differences || 'No hay diferenciassss' }}</pre>
+          <pre *ngIf="!manipuleJsons">{{ comparison.differences || 'No hay diferenciassss' }}</pre>
+          <ngx-json-viewer *ngIf="manipuleJsons" [json]="comparison.differences" ></ngx-json-viewer>
         </div>
       </div>
       </ng-template>
